@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 386
-  Top = 136
+  Left = 375
+  Top = 203
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'PingPong'
@@ -14,6 +14,8 @@ object Form1: TForm1
   Font.Style = []
   Menu = MainMenu1
   OldCreateOrder = False
+  OnKeyDown = FormKeyDown
+  OnKeyUp = FormKeyUp
   PixelsPerInch = 96
   TextHeight = 13
   object background: TShape
@@ -588,5 +590,34 @@ object Form1: TForm1
         Caption = 'Autor'
       end
     end
+  end
+  object timerPaddleLeftUp: TTimer
+    Enabled = False
+    Interval = 10
+    OnTimer = timerPaddleLeftUpTimer
+    Left = 32
+  end
+  object timerPaddleRightUp: TTimer
+    Enabled = False
+    Interval = 10
+    OnTimer = timerPaddleRightUpTimer
+    Left = 96
+  end
+  object timerPaddleLeftDown: TTimer
+    Enabled = False
+    Interval = 10
+    OnTimer = timerPaddleLeftDownTimer
+    Left = 64
+  end
+  object timerPaddleRightDown: TTimer
+    Enabled = False
+    Interval = 10
+    OnTimer = timerPaddleRightDownTimer
+    Left = 128
+  end
+  object ballTimer: TTimer
+    Interval = 30
+    OnTimer = ballTimerTimer
+    Left = 160
   end
 end

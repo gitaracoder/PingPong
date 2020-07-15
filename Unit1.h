@@ -28,6 +28,20 @@ __published:	// IDE-managed Components
         TLabel *Label2;
         TLabel *scoreRight;
         TImage *ball;
+        TTimer *timerPaddleLeftUp;
+        TTimer *timerPaddleRightUp;
+        TTimer *timerPaddleLeftDown;
+        TTimer *timerPaddleRightDown;
+        TTimer *ballTimer;
+        void __fastcall timerPaddleLeftDownTimer(TObject *Sender);
+        void __fastcall timerPaddleLeftUpTimer(TObject *Sender);
+        void __fastcall FormKeyDown(TObject *Sender, WORD &Key,
+          TShiftState Shift);
+        void __fastcall FormKeyUp(TObject *Sender, WORD &Key,
+          TShiftState Shift);
+        void __fastcall timerPaddleRightDownTimer(TObject *Sender);
+        void __fastcall timerPaddleRightUpTimer(TObject *Sender);
+        void __fastcall ballTimerTimer(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
         __fastcall TForm1(TComponent* Owner);
