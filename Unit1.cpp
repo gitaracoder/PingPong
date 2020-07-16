@@ -4,13 +4,17 @@
 #pragma hdrstop
 
 #include "Unit1.h"
+#include "Unit2.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
 TForm1 *Form1;
 
-int x = -8;
-int y = 0;
+int x;
+int y;
+
+int scoreLeftNumber = 0;
+int scoreRightNumber = 0;
 
 //---------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner)
@@ -70,12 +74,182 @@ void __fastcall TForm1::ballTimerTimer(TObject *Sender)
         //odbij od dolnej sciany
         if (ball->Top + ball->Height >= background->Top + background->Height) y = -y;
 
-        if (ball->Left <= paddleLeft->Left + paddleLeft->Width && ball->Top+ball->Height/2 >=paddleLeft->Top && ball->Top+ball->Height/2 <= paddleLeft ->Top + paddleLeft->Height)  x = -x;
+        if (ball->Left <= background->Left)
+        {
+                scoreRightNumber++;
 
-        if (ball->Left + ball->Width >= paddleRight->Left && ball->Top+ball->Height/2 >=paddleRight->Top && ball->Top+ball->Height/2 <= paddleRight ->Top + paddleRight->Height)  x = -x;
+                ballTimer->Enabled = false;
+                ball->Visible = false;
+                Button1->Visible = true;
+                Button2->Visible = true;
+        }
+        else if (ball->Left + ball->Width >= background->Left + background->Width)
+        {
+                scoreLeftNumber++;
+
+                ballTimer->Enabled = false;
+                ball->Visible = false;
+                Button1->Visible = true;
+                Button2->Visible = true;
+        }
+        else if (ball->Left <= paddleLeft->Left + paddleLeft->Width && ball->Top+ball->Height/2 >=paddleLeft->Top && ball->Top+ball->Height/2 <= paddleLeft ->Top + paddleLeft->Height)
+        x = -x;
+
+        else if (ball->Left + ball->Width >= paddleRight->Left && ball->Top+ball->Height/2 >=paddleRight->Top && ball->Top+ball->Height/2 <= paddleRight ->Top + paddleRight->Height)
+        x = -x;
+
+        scoreRight->Caption = IntToStr(scoreRightNumber);
+        scoreLeft->Caption = IntToStr(scoreLeftNumber);
 
 
 
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button1Click(TObject *Sender)
+{
+        Button1->Visible = false;
+        Button2->Visible = false;
+        ballTimer->Enabled = true;
+        ball->Visible = true;
+        ball->Top = 360;
+        ball->Left = 616;
+
+
+}
+//---------------------------------------------------------------------------
+
+
+
+void __fastcall TForm1::Mae1Click(TObject *Sender)
+{
+        x = -8;
+        y = -8;
+        Mae1->Checked = true;
+        rednie1->Checked = false;
+        Duze1->Checked = false;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::rednie1Click(TObject *Sender)
+{
+        x = -15;
+        y = -15;
+        rednie1->Checked = true;
+        Mae1->Checked = false;
+        Duze1->Checked = false;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Duze1Click(TObject *Sender)
+{
+        x = -22;
+        y = -22;
+        Duze1->Checked = true;
+        Mae1->Checked = false;
+        rednie1->Checked = false;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::FormCreate(TObject *Sender)
+{
+        x = -15;
+        y = -15;
+        rednie1->Checked = true;
+        ballTimer->Enabled = false;
+
+        paddleLeft->Height = 100;
+        paddleLeft->Top = ((background->Top+background->Height)/2) - paddleLeft->Height/2;
+
+        redni1->Checked = true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button2Click(TObject *Sender)
+{
+        scoreLeftNumber = 0;
+        scoreRightNumber = 0;
+        Button1->Visible = false;
+        Button2->Visible = false;
+        ballTimer->Enabled = true;
+        ball->Visible = true;
+        ball->Top = 360;
+        ball->Left = 616;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::redni1Click(TObject *Sender)
+{
+        paddleLeft->Height = 100;
+        paddleLeft->Top = ((background->Top+background->Height)/2) - paddleLeft->Height/2;
+
+        paddleRight->Height = 100;
+        paddleRight->Top = ((background->Top+background->Height)/2) - paddleRight->Height/2;
+
+        redni1->Checked = true;
+        May1->Checked = false;
+        Duy1->Checked = false;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::May1Click(TObject *Sender)
+{
+        paddleLeft->Height = 50;
+        paddleLeft->Top = ((background->Top+background->Height)/2) - paddleLeft->Height/2;
+
+        paddleRight->Height = 50;
+        paddleRight->Top = ((background->Top+background->Height)/2) - paddleRight->Height/2;
+
+        redni1->Checked = false;
+        May1->Checked = true;
+        Duy1->Checked = false;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Duy1Click(TObject *Sender)
+{
+        paddleLeft->Height = 200;
+        paddleLeft->Top = ((background->Top+background->Height)/2) - paddleLeft->Height/2;
+
+        paddleRight->Height = 200;
+        paddleRight->Top = ((background->Top+background->Height)/2) - paddleRight->Height/2;
+
+        redni1->Checked = false;
+        May1->Checked = false;
+        Duy1->Checked = true;
+}
+//---------------------------------------------------------------------------
+
+
+
+void __fastcall TForm1::Pauza1Click(TObject *Sender)
+{
+        ballTimer->Enabled = false;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Wznw1Click(TObject *Sender)
+{
+        ballTimer->Enabled = true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Zakocz1Click(TObject *Sender)
+{
+        Application->Terminate();       
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Opis1Click(TObject *Sender)
+{
+        Form2->ShowModal(); // okienko zawsze na wierzchu
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Autor1Click(TObject *Sender)
+{
+        ShellExecute(NULL, "open", "https://github.com/gitaracoder", NULL, NULL, SW_SHOWNORMAL);        
 }
 //---------------------------------------------------------------------------
 

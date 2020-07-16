@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 375
-  Top = 203
+  Left = 433
+  Top = 194
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'PingPong'
@@ -14,6 +14,7 @@ object Form1: TForm1
   Font.Style = []
   Menu = MainMenu1
   OldCreateOrder = False
+  OnCreate = FormCreate
   OnKeyDown = FormKeyDown
   OnKeyUp = FormKeyUp
   PixelsPerInch = 96
@@ -36,7 +37,6 @@ object Form1: TForm1
     Top = 328
     Width = 20
     Height = 100
-    AutoSize = True
     Picture.Data = {
       07544269746D6170A6170000424DA61700000000000036000000280000001400
       000064000000010018000000000070170000230B0000230B0000000000000000
@@ -228,13 +228,13 @@ object Form1: TForm1
       1E17291E17291E17291E17291E17291E17291E17291EFFFFFF17291E17291E17
       291E17291E17291E17291E17291E17291E17291E17291E17291E17291E17291E
       17291E17291E17291E17291E17291EFFFFFF}
+    Stretch = True
   end
   object paddleRight: TImage
     Left = 1200
     Top = 328
     Width = 20
     Height = 100
-    AutoSize = True
     Picture.Data = {
       07544269746D6170A6170000424DA61700000000000036000000280000001400
       000064000000010018000000000070170000230B0000230B0000000000000000
@@ -426,18 +426,22 @@ object Form1: TForm1
       1E17291E17291E17291E17291E17291E17291E17291EFFFFFF17291E17291E17
       291E17291E17291E17291E17291E17291E17291E17291E17291E17291E17291E
       17291E17291E17291E17291E17291EFFFFFF}
+    Stretch = True
   end
   object scoreLeft: TLabel
-    Left = 600
+    Left = 607
     Top = 0
     Width = 18
     Height = 37
+    Alignment = taRightJustify
+    BiDiMode = bdLeftToRight
     Caption = '0'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -32
     Font.Name = 'MS Sans Serif'
     Font.Style = []
+    ParentBiDiMode = False
     ParentFont = False
   end
   object Label2: TLabel
@@ -454,16 +458,18 @@ object Form1: TForm1
     ParentFont = False
   end
   object scoreRight: TLabel
-    Left = 640
+    Left = 632
     Top = 0
     Width = 18
     Height = 37
+    BiDiMode = bdLeftToRight
     Caption = '0'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -32
     Font.Name = 'MS Sans Serif'
     Font.Style = []
+    ParentBiDiMode = False
     ParentFont = False
   end
   object ball: TImage
@@ -574,20 +580,103 @@ object Form1: TForm1
       FFFF}
     Transparent = True
   end
+  object Button1: TButton
+    Left = 488
+    Top = 272
+    Width = 281
+    Height = 89
+    Caption = 'Nast'#281'pna runda'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -32
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    Visible = False
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 488
+    Top = 392
+    Width = 281
+    Height = 89
+    Caption = 'Nowa Gra'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -32
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+    OnClick = Button2Click
+  end
   object MainMenu1: TMainMenu
     object Plik1: TMenuItem
       Caption = 'Plik'
       object Nowagra1: TMenuItem
         Caption = 'Nowa gra'
+        OnClick = Button2Click
+      end
+      object Pauza1: TMenuItem
+        Caption = 'Pauza'
+        OnClick = Pauza1Click
+      end
+      object Wznw1: TMenuItem
+        Caption = 'Wzn'#243'w'
+        OnClick = Wznw1Click
+      end
+      object Nastpnarunda1: TMenuItem
+        Caption = 'Nast'#281'pna runda'
+        OnClick = Button1Click
       end
       object Zakocz1: TMenuItem
         Caption = 'Zako'#324'cz'
+        OnClick = Zakocz1Click
+      end
+    end
+    object Gra1: TMenuItem
+      Caption = 'Gra'
+      object Tempogry1: TMenuItem
+        Caption = 'Tempo gry'
+        object Mae1: TMenuItem
+          Caption = 'Ma'#322'e'
+          OnClick = Mae1Click
+        end
+        object rednie1: TMenuItem
+          Caption = #346'rednie'
+          OnClick = rednie1Click
+        end
+        object Duze1: TMenuItem
+          Caption = 'Du'#380'e'
+          OnClick = Duze1Click
+        end
+      end
+      object Rozmiarpaletek1: TMenuItem
+        Caption = 'Rozmiar paletek'
+        object May1: TMenuItem
+          Caption = 'Ma'#322'y'
+          OnClick = May1Click
+        end
+        object redni1: TMenuItem
+          Caption = #346'redni'
+          OnClick = redni1Click
+        end
+        object Duy1: TMenuItem
+          Caption = 'Du'#380'y'
+          OnClick = Duy1Click
+        end
       end
     end
     object Pomoc1: TMenuItem
       Caption = 'Pomoc'
+      object Opis1: TMenuItem
+        Caption = 'Opis'
+        OnClick = Opis1Click
+      end
       object Autor1: TMenuItem
         Caption = 'Autor'
+        OnClick = Autor1Click
       end
     end
   end
@@ -616,7 +705,7 @@ object Form1: TForm1
     Left = 128
   end
   object ballTimer: TTimer
-    Interval = 30
+    Interval = 10
     OnTimer = ballTimerTimer
     Left = 160
   end
